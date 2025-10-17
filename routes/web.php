@@ -3,25 +3,28 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('app');
+    // return inertia('Home');
+    return Inertia::render('Home', ['test' => 'Test text']);
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('guest')->controller(AuthController::class)->group(function () {
-    Route::get('/register', 'showRegister')->name('show.register');
-    Route::get('/login', 'showLogin')->name('show.login');
-    Route::post('/register', 'register')->name('register');
-    Route::post('/login', 'login')->name('login');
+  Route::get('/register', 'showRegister')->name('show.register');
+  Route::get('/login', 'showLogin')->name('show.login');
+  Route::post('/register', 'register')->name('register');
+  Route::post('/login', 'login')->name('login');
 });
 
-
 Route::middleware('auth')->controller(NoteController::class)->group(function () {
-    Route::get('/notes', 'index')->name('notes.index');
-    Route::get('/notes/create', 'create')->name('notes.create');
-    Route::get('/notes/{note}', 'show')->name('notes.show');
-    Route::post('/notes', 'store')->name('notes.store');
-    Route::delete('/notes/{note}', 'destroy')->name('notes.destroy');
+  Route::resource('notes', NoteController::class);
+//     Route::get('/notes', 'index')->name('notes.index');
+//     Route::get('/notes/create', 'create')->name('notes.create');
+//     Route::get('/notes/{note}', 'show')->name('notes.show');
+//     Route::post('/notes', 'store')->name('notes.store');
+//     Route::delete('/notes/{note}', 'destroy')->name('notes.destroy');
 });

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Note;
 use App\Models\Store;
-
 class NoteController extends Controller
 {
 
@@ -13,14 +12,15 @@ class NoteController extends Controller
         //route --> /notes
         $notes = Note::with('store')->orderBy('created_at', 'desc')->paginate(10);
 
-        return view('notes.index', ['notes' => $notes]);
+        return inertia('Notes/index', ["notes" => $notes]);
+        // return view('notes.index', ['notes' => $notes]);
     }
 
     public function show(Note $note) {
         //route --> /notes/{id}
         $note->load('store');
 
-        return view('notes.show', ['note' => $note]);
+        return inertia('Notes/Details', ['note' => $note]);
     }
 
     public function create() {
@@ -28,7 +28,7 @@ class NoteController extends Controller
         //render a create view (with web form) to users
         $stores = Store::all();
 
-        return view('notes.create', ['stores' => $stores]);
+        return inertia('Notes/Create', ['stores' => $stores]);
     }
 
    public function store(Request $request)
@@ -46,7 +46,7 @@ class NoteController extends Controller
 
         Note::create($validated);
 
-        return redirect()->route('notes.index')->with('success', 'Note Created!');
+        return redirect('/notes')->with('message', 'Note Created!');
     }
 
     public function destroy(Note $note) {
@@ -54,6 +54,6 @@ class NoteController extends Controller
         //handle delete request to delete a note record from table
         $note->delete();
 
-        return redirect()->route('notes.index')->with('success', 'Note Deleted!');
+        return redirect('/notes')->with('message', 'Note Deleted!');
     }
 }

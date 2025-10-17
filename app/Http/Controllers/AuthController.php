@@ -10,11 +10,13 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     public function showRegister () {
-        return view('auth.register');
+        return inertia('Register');
     }
 
     public function showLogin () {
-        return view('auth.login');
+        // return view('auth.login');
+        return inertia('Login');
+
     }
 
     public function register (Request $request) {
@@ -41,7 +43,7 @@ class AuthController extends Controller
         if(Auth::attempt($validated)) {
             $request->session()->regenerate();
 
-            return redirect()->route('notes.index');
+            return redirect('/notes');
         }
 
         throw ValidationException::withMessages([
