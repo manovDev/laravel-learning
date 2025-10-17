@@ -50,10 +50,14 @@ header {
 form {
     @apply max-w-screen-sm;
 }
-input,
+input:not([type="checkbox"]):not([type="radio"]),
 select,
 textarea {
-    @apply block w-full mt-2 mb-4 p-2;
+    @apply w-full mt-2 mb-4 p-2 bg-white;
+}
+
+input[type="checkbox"] {
+    @apply inline-block align-middle w-auto h-4;
 }
 
 /* custom classes */

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\Store;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Note>
  */
@@ -19,7 +19,8 @@ class NoteFactory extends Factory
         return [
            'name' => fake()->name(),
            'description' => fake()->realText(500),
-           'highlight' => fake()->boolean()
+           'highlight' => fake()->boolean(),
+           'store_id' => Store::inRandomOrder()->first()->id
         ];
     }
 }

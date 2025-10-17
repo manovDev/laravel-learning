@@ -9,7 +9,10 @@
     @foreach ($notes as $note)
         <li>
            <x-card href="{{ route('notes.show', $note->id) }}" :highlight="$note['highlight'] == true">
-                <h3>{{ $note->name }}</h3>
+                <div>
+                    <h3>Note: {{ $note->name }}</h3>
+                    <p><strong>Store name:</strong> {{ $note->store->name }}</p>
+                </div>
            </x-card>
         </li>
     @endforeach

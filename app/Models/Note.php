@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-    protected $fillable = ['name', 'description', 'highlight'];
+    protected $fillable = ['name', 'description', 'highlight', 'store_id'];
 
     /** @use HasFactory<\Database\Factories\NoteFactory> */
     use HasFactory;
+
+    public function store() {
+        return $this->belongsTo(Store::class);
+    }
 }
