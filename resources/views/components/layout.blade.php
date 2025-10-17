@@ -12,7 +12,7 @@
         {{ session('success') }}
         </div>
     @endif
-    <header>асд
+    <header>
         <nav>
             <h1>Notes App</h1>
 
